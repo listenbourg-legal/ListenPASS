@@ -74,17 +74,15 @@ const canvadraw = async (
 };
 
 const CreateIDCard = (IDCardData) => {
-	let IRLStartYear = 2047;
-	let IRLStartDay = Math.floor((new Date() - new Date(IRLStartYear, 0, 0)) / 86400000);
-	let IRLStartHour = new Date().getHours() + new Date().getMinutes() / 60;
-	let IRLStart = IRLStartDay + IRLStartHour / 1.325;
-	let RPYear = Math.floor(IRLStart / 20);
-	let RPDay = Math.floor(IRLStart % 20);
-	let RPDate = new Date(RPYear + 2047, 0, RPDay);
-	let RPTime = Math.floor((IRLStart - RPYear * 20) * 24);
-	let RPMinute = Math.floor((IRLStart - RPYear * 20 - RPDay - RPTime / 24) * 60);
-	let RPSecond = Math.floor((IRLStart - RPYear * 20 - RPDay - RPTime / 24 - RPMinute / 60) * 60);
-	let RPExpireDate = new Date(RPYear + 2047+5, 0, RPDay, RPTime, RPMinute, RPSecond);
+	let RPYear = 2047;
+	let RPDay = Math.floor((new Date() - new Date(RPYear, 0, 0)) / 86400000);
+	let RPHour = new Date().getHours() + new Date().getMinutes() / 60;
+	let RPStart = RPDay + RPHour / 1.325;
+	let RPDate = new Date(RPYear, 0, Math.floor(RPStart % 20));
+	let RPTime = Math.floor((RPStart - Math.floor(RPStart / 20) * 20) * 24);
+	let RPMinute = Math.floor((RPStart - Math.floor(RPStart / 20) * 20 - Math.floor(RPStart % 20) - RPTime / 24) * 60);
+	let RPSecond = Math.floor((RPStart - Math.floor(RPStart / 20) * 20 - Math.floor(RPStart % 20) - RPTime / 24 - RPMinute / 60) * 60);
+	let RPExpireDate = new Date(RPYear, 0, Math.floor(RPStart % 20), RPTime, RPMinute, RPSecond);
 	let DeliverDate = RPDate;
 	let ExpireDate = RPExpireDate;
 
