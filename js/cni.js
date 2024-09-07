@@ -75,7 +75,7 @@ const canvadraw = async (
 
 const CreateIDCard = (IDCardData) => {
 	let RPYear = 2047;
-	let RPDay = Math.floor((new Date() - new Date(RPYear, 0, 0)) / 86400000);
+	let RPDay = 1639;
 	let RPHour = new Date().getHours() + new Date().getMinutes() / 60;
 	let RPStart = RPDay + RPHour / 1.325;
 	let RPDate = new Date(RPYear, 0, Math.floor(RPStart % 20));
