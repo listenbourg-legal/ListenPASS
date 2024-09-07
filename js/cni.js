@@ -75,13 +75,11 @@ const canvadraw = async (
 
 const CreateIDCard = (IDCardData) => {
 	let RPYear = 2047;
-	let RPDay = 1639;
+	let startDate = new Date(2024, 7, 30); // 30 août 2024
+	let RPStart = (new Date().getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
 	let RPHour = new Date().getHours() + new Date().getMinutes() / 60;
-	let RPStart = RPDay + RPHour / 1.325;
-	let RPDate = new Date(RPYear, 0, Math.floor(RPStart % 20));
-	//let RPTime = Math.floor((RPStart - Math.floor(RPStart / 20) * 20) * 24);
-	//let RPMinute = Math.floor((RPStart - Math.floor(RPStart / 20) * 20 - Math.floor(RPStart % 20) - RPTime / 24) * 60);
-	//let RPSecond = Math.floor((RPStart - Math.floor(RPStart / 20) * 20 - Math.floor(RPStart % 20) - RPTime / 24 - RPMinute / 60) * 60);
+	let RPDay = (RPStart * 24 + RPHour) / 1.325;
+	let RPDate = new Date(RPYear, 0, Math.floor(RPDay % 20));
 	let RPExpireDate = new Date(RPDate.getFullYear() + 5, RPDate.getMonth(), RPDate.getDate());
 	let DeliverDate = RPDate;
 	let ExpireDate = RPExpireDate;
