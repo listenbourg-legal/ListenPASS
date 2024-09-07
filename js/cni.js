@@ -74,7 +74,7 @@ const canvadraw = async (
 };
 
 const CreateIDCard = (IDCardData) => {
-	let IRLStartYear = new Date().getFullYear();
+	let IRLStartYear = 2047;
 	let IRLStartDay = Math.floor((new Date() - new Date(IRLStartYear, 0, 0)) / 86400000);
 	let IRLStartHour = new Date().getHours() + new Date().getMinutes() / 60;
 	let IRLStart = IRLStartDay + IRLStartHour / 1.325;
