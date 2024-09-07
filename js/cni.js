@@ -82,7 +82,7 @@ const CreateIDCard = (IDCardData) => {
 	let RPTime = Math.floor((RPStart - Math.floor(RPStart / 20) * 20) * 24);
 	let RPMinute = Math.floor((RPStart - Math.floor(RPStart / 20) * 20 - Math.floor(RPStart % 20) - RPTime / 24) * 60);
 	let RPSecond = Math.floor((RPStart - Math.floor(RPStart / 20) * 20 - Math.floor(RPStart % 20) - RPTime / 24 - RPMinute / 60) * 60);
-	let RPExpireDate = new Date(RPYear + 5, 0, Math.floor(RPStart % 20));
+	let RPExpireDate = new Date(RPYear + 5, RPDate.getMonth(), RPDate.getDate());
 	let DeliverDate = RPDate;
 	let ExpireDate = RPExpireDate;
 
