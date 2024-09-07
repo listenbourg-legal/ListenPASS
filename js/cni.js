@@ -74,10 +74,19 @@ const canvadraw = async (
 };
 
 const CreateIDCard = (IDCardData) => {
-	let DeliverDate = new Date();
-
-	let ExpireDate = new Date();
-	ExpireDate.setFullYear(ExpireDate.getFullYear() + 5);
+	let IRLStartYear = new Date().getFullYear();
+	let IRLStartDay = Math.floor((new Date() - new Date(IRLStartYear, 0, 0)) / 86400000);
+	let IRLStartHour = new Date().getHours() + new Date().getMinutes() / 60;
+	let IRLStart = IRLStartDay + IRLStartHour / 1.325;
+	let RPYear = Math.floor(IRLStart / 20);
+	let RPDay = Math.floor(IRLStart % 20);
+	let RPDate = new Date(RPYear, 0, RPDay);
+	let RPTime = Math.floor((IRLStart - RPYear * 20) * 24);
+	let RPMinute = Math.floor((IRLStart - RPYear * 20 - RPDay - RPTime / 24) * 60);
+	let RPSecond = Math.floor((IRLStart - RPYear * 20 - RPDay - RPTime / 24 - RPMinute / 60) * 60);
+	let RPExpireDate = new Date(RPYear, 0, RPDay, RPTime, RPMinute, RPSecond);
+	let DeliverDate = RPDate;
+	let ExpireDate = RPExpireDate;
 
 	let IDCard = {
 		ID_Surname: clear(IDCardData.ID_Surname),
