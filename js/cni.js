@@ -76,12 +76,23 @@ const canvadraw = async (
 const CreateIDCard = (IDCardData) => {
 	let RPYear = 2047;
 	let startDate = new Date(2024, 7, 30); // 30 août 2024
-	let RPStart = (new Date().getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
-	let RPHour = new Date().getHours() + new Date().getMinutes() / 60;
-	let RPDay = (RPStart * 24 + RPHour) / 1.325;
-	let RPDate = new Date(RPYear, 0, Math.floor(RPDay % 20));
-	let RPExpireDate = new Date(RPDate.getFullYear() + 5, RPDate.getMonth(), RPDate.getDate());
-	let DeliverDate = RPDate;
+	let todayDate = new Date(2024, 4, 1); // 1 mai 2024
+	let daysSinceStart = (todayDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+	let RPDay = Math.floor(daysSinceStart / 30) * 30 + Math.floor(daysSinceStart % 30);
+	let RPHour = todayDate.getHours() + todayDate.getMinutes() / 60;
+	let RPStart = (RPDay * 24 + RPHour) / 1.325;
+	let RPDate = new Date(RPYear, 0, Math.floor(RPStart % 20) + 1); // Ajout de 1 pour calibrer le mois
+	
+	let RPYearStart = new Date(RPYear, 0, 1);
+	let RPYearDays = (RPDate.getTime() - RPYearStart.getTime()) / (1000 * 60 * 60 * 24);
+	let RPYearMonths = Math.floor(RPYearDays / 30);
+	let RPYearMonthDays = RPYearDays - RPYearMonths * 30;
+	let RPYearMonthHours = RPYearMonthDays * 24;
+	let RPYearMonthMinutes = (RPYearMonthDays - Math.floor(RPYearMonthDays)) * 60;
+	let RPYearMonthSeconds = (RPYearMonthMinutes - Math.floor(RPYearMonthMinutes)) * 60;
+	let RPYearMonth = new Date(RPYear, RPYearMonths, RPYearMonthDays, RPYearMonthHours, RPYearMonthMinutes, RPYearMonthSeconds);
+	let DeliverDate =  RPYearMonth;
+	let RPExpireDate = new Date(DeliverDate.getFullYear() + 5, DeliverDate.getMonth(), DeliverDate.getDate());
 	let ExpireDate = RPExpireDate;
 
 	let IDCard = {
